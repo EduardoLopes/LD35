@@ -39,6 +39,8 @@ class Main extends luxe.Game {
     config.window.width = config.window.width * zoom;
     config.window.height = config.window.height * zoom;
 
+    config.runtime.prevent_default_keys.push(Key.space);
+
     return config;
 
   } //config
@@ -182,9 +184,6 @@ class Main extends luxe.Game {
     foregroundBatcherCamera.viewport.set(x, y, width, height);
 
     var _zoom:Float = Math.max(0, zoom - 1);
-
-/*    cameraOffset.set_xy(Main.gameResolution.x * _zoom, Main.gameResolution.y * _zoom);
-    screenMiddle.set_xy(((Main.gameResolution.x * Main.zoom) / 2), ((Main.gameResolution.y * Main.zoom) / 2));*/
 
     Luxe.camera.pos.x = -((Main.gameResolution.x * _zoom) / 2);
     Luxe.camera.pos.y = -((Main.gameResolution.y * _zoom) / 2);

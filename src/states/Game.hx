@@ -19,6 +19,7 @@ import nape.shape.Shape;
 import luxe.Text;
 
 import objects.ObjectPool;
+import objects.Player;
 
 import phoenix.Texture.ClampType;
 
@@ -33,7 +34,7 @@ enum Direction {
 class Game extends State {
 
   public static var drawer : DebugDraw;
-  /*public static var player : Player;*/
+  public static var player : Player;
 
   public function new() {
 
@@ -45,6 +46,8 @@ class Game extends State {
 
     Luxe.physics.nape.debugdraw = drawer;
     Luxe.physics.nape.draw = true;
+
+    connect_input();
 
 /*    Main.backgroundBatcherCamera.pos.x = -(CameraFollower.screenMiddle.x);
     Main.backgroundBatcherCamera.pos.y = -(CameraFollower.screenMiddle.y);
@@ -70,6 +73,8 @@ class Game extends State {
     });
 
     level.display({ visible: true, scale:1 });
+
+    player = new Player(240, 170);
 
   }
 
@@ -132,26 +137,21 @@ class Game extends State {
 
   function connect_input() {
 
+
     Luxe.input.bind_key('left', Key.left);
-    Luxe.input.bind_key('right', Key.right);
-    Luxe.input.bind_key('jump', Key.key_z);
-    Luxe.input.bind_key('shoot', Key.key_x);
-    Luxe.input.bind_key('bomb', Key.space);
-
     Luxe.input.bind_key('left', Key.key_a);
-    Luxe.input.bind_key('right', Key.key_d);
-    Luxe.input.bind_key('jump', Key.key_l);
-    Luxe.input.bind_key('shoot', Key.key_k);
 
-    Luxe.input.bind_gamepad('shoot', 3);
-    Luxe.input.bind_gamepad('jump', 2);
-    Luxe.input.bind_gamepad('bomb', 0);
+    Luxe.input.bind_key('right', Key.right);
+    Luxe.input.bind_key('right', Key.key_d);
+
+    Luxe.input.bind_key('up', Key.key_w);
+    Luxe.input.bind_key('up', Key.up);
+
+    Luxe.input.bind_key('down', Key.key_s);
+    Luxe.input.bind_key('down', Key.down);
 
     Luxe.input.bind_gamepad('turn_left', 4);
     Luxe.input.bind_gamepad('turn_right', 5);
-
-    Luxe.input.bind_gamepad('start', 9);
-    Luxe.input.bind_key('start', Key.enter);
 
   }
 

@@ -9,6 +9,8 @@ import luxe.States;
 import luxe.Parcel;
 import luxe.ParcelProgress;
 
+import nape.geom.Vec2;
+
 import states.Game;
 
 class Main extends luxe.Game {
@@ -16,6 +18,8 @@ class Main extends luxe.Game {
   public static var zoom : Int = 1;
   public static var pressingGamepadLeft : Bool;
   public static var pressingGamepadRight : Bool;
+  public static var pressingGamepadUp : Bool;
+  public static var pressingGamepadDown : Bool;
   public static var gameResolution : Vector;
   public static var zoomRatio : Vector;
   public static var backgroundBatcher : phoenix.Batcher;
@@ -44,7 +48,8 @@ class Main extends luxe.Game {
       ],
       textures : [
         {id : 'assets/images/collision-tile.png'},
-        {id : 'assets/images/tileset.png'}
+        {id : 'assets/images/tileset.png'},
+        {id : 'assets/images/player.png'}
       ],
       sounds : []
     });
@@ -108,6 +113,17 @@ class Main extends luxe.Game {
 
         if(event.value < 0) pressingGamepadLeft = true;
         if(event.value > 0) pressingGamepadRight = true;
+
+      }
+
+      if(event.axis == 1){
+
+        pressingGamepadUp = false;
+        pressingGamepadDown = false;
+
+        if(event.value < 0) pressingGamepadUp = true;
+        if(event.value > 0) pressingGamepadDown = true;
+
       }
 
     } else {
@@ -117,13 +133,14 @@ class Main extends luxe.Game {
         pressingGamepadRight = false;
       }
 
+      if(event.axis == 1) {
+        pressingGamepadUp = false;
+        pressingGamepadDown = false;
+      }
+
     }
 
-    if(event.axis == 1){
 
-      /*up/down buttons*/
-
-    }
 
   }
 

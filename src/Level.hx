@@ -42,7 +42,7 @@ class Level extends TiledLevel{
       entity.onObjectsLoaded();
     }
 
-    Game.drawer.add(body);
+    //Game.drawer.add(body);
 
   }
 

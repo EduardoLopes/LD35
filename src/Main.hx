@@ -4,9 +4,12 @@ import luxe.Camera;
 import luxe.Color;
 import luxe.Vector;
 import luxe.Screen;
+import luxe.States;
 
 import luxe.Parcel;
 import luxe.ParcelProgress;
+
+import states.Game;
 
 class Main extends luxe.Game {
 
@@ -19,8 +22,13 @@ class Main extends luxe.Game {
   public static var foregroundBatcher : phoenix.Batcher;
   public static var backgroundBatcherCamera : Camera;
   public static var foregroundBatcherCamera : Camera;
+  public static var state: States;
+  public static var types : Types;
+  public static var materials : Materials;
 
   override function config(config:luxe.AppConfig) {
+
+    gameResolution = new Vector(config.window.width, config.window.height);
 
     return config;
 
@@ -31,8 +39,13 @@ class Main extends luxe.Game {
     var parcel = new Parcel({
       fonts : [],
       jsons : [],
-      texts : [],
-      textures : [],
+      texts : [
+        {id : 'assets/maps/map-1.tmx'},
+      ],
+      textures : [
+        {id : 'assets/images/collision-tile.png'},
+        {id : 'assets/images/tileset.png'}
+      ],
       sounds : []
     });
 
@@ -64,9 +77,21 @@ class Main extends luxe.Game {
       camera: foregroundBatcherCamera.view
     });
 
+    types = new Types();
+    materials = new Materials();
+
+    parcel.load();
+
   } //ready
 
   function onLoaded(_){
+
+    Luxe.physics.nape.space.gravity = new Vec2(0, 0);
+
+    state = new States({ name:'state' });
+    state.add( new Game() );
+
+    state.set('game');
 
   }
 

@@ -12,10 +12,11 @@ import nape.phys.Body;
 import nape.phys.BodyType;
 import nape.shape.Polygon;
 
+import states.Game;
+
 class Level extends TiledLevel{
 
   var body : Body;
-  public var entrances : Map<String, MapEntrance>;
   public var entities : Map<String, engine.Sprite>;
 
   public function new(options:TiledMapOptions){
@@ -23,7 +24,6 @@ class Level extends TiledLevel{
     super(options);
 
     entities = new Map();
-    entrances = new Map();
 
     body = new Body(BodyType.STATIC);
     body.cbTypes.add(Main.types.Tilemap);
@@ -42,6 +42,8 @@ class Level extends TiledLevel{
       entity.onObjectsLoaded();
     }
 
+    Game.drawer.add(body);
+
   }
 
   function loadObjects(){
@@ -52,13 +54,6 @@ class Level extends TiledLevel{
         entities.set( object.name, Type.createInstance( Type.resolveClass( 'objects.'+object.type ), [object, this] ) );
 
       }
-    }
-
-    for(layer in tiledmap_data.image_layers) {
-
-      var background = new Background(layer, this);
-      entities.set(background.name, background);
-
     }
 
   }

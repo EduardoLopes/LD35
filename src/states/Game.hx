@@ -74,7 +74,7 @@ class Game extends State {
 
     level.display({ visible: true, scale:1 });
 
-    player = new Player(240, 170);
+    player = new Player(240 / 2, 170 / 2);
 
   }
 

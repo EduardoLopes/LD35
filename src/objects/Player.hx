@@ -38,6 +38,7 @@ class Player extends Sprite {
   public var core : Shape;
   public var walkForce : Float = 150;
   public var invincible : Bool = false;
+  public var onGround : Bool = false;
 
   var blinker : Blinker;
 
@@ -48,7 +49,7 @@ class Player extends Sprite {
       texture: Luxe.resources.texture('assets/images/player.png'),
       name: 'player',
       depth: 3.4,
-      size: new Vector(16, 16)
+      size: new Vector(8, 8)
     });
 
     canMove = true;
@@ -56,7 +57,7 @@ class Player extends Sprite {
     physics = add(new BodySetup({
       bodyType: BodyType.DYNAMIC,
       types: [Main.types.Player, Main.types.Movable],
-      polygon: Polygon.box(16, 16),
+      polygon: Polygon.box(8, 8),
       isBullet: true
     }));
 
@@ -69,6 +70,18 @@ class Player extends Sprite {
 
     body.userData.name = 'player';
     core.userData.name = 'player';
+
+    add( new TouchingChecker('player-floor', Main.types.Player, Main.types.Floor, core.id) );
+
+    events.listen('player-floor_onBottom', function(_){
+      onGround = true;
+      body.setShapeMaterials(Materials.Ground);
+    });
+
+    events.listen('player-floor_offBottom', function(_){
+      onGround = false;
+      body.setShapeMaterials(Materials.Air);
+    });
 
     /*var anim_object = Luxe.resources.json('assets/jsons/player_animation.json');
 
@@ -113,6 +126,7 @@ class Player extends Sprite {
 
     moving = false;
 
+    body.velocity.x = 0;
 
     if(Luxe.input.inputdown('left') || Main.pressingGamepadLeft) {
 
@@ -126,20 +140,12 @@ class Player extends Sprite {
 
     }
 
-    if(Luxe.input.inputdown('up') || Main.pressingGamepadUp) {
+    if(Luxe.input.inputdown('up') && onGround) {
 
-      body.velocity.y = -walkForce;
-      moving = true;
-
-    } else if(Luxe.input.inputdown('down') || Main.pressingGamepadDown) {
-
-      body.velocity.y = walkForce;
+      body.velocity.y = -(walkForce + 50);
       moving = true;
 
     }
-
-    body.velocity.x *= 0.80;
-    body.velocity.y *= 0.80;
 
     pos.x = body.position.x;
     pos.y = body.position.y;

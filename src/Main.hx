@@ -91,8 +91,6 @@ class Main extends luxe.Game {
 
   function onLoaded(_){
 
-    Luxe.physics.nape.space.gravity = new Vec2(0, 0);
-
     state = new States({ name:'state' });
     state.add( new Game() );
 

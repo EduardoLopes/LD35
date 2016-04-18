@@ -40,6 +40,8 @@ class Player extends Sprite {
   public var invincible : Bool = false;
   public var onGround : Bool = false;
 
+  public var shape_name : String = 'rectangle';
+
   var blinker : Blinker;
 
   public function new (x : Float, y : Float){
@@ -99,6 +101,23 @@ class Player extends Sprite {
       /*pure*/ true
     ));
 
+    uv.x = 0;
+    uv.w = 8;
+
+  }
+
+  public function set_rectangle(){
+
+    shape_name = 'rectangle';
+    uv.x = 0;
+
+  }
+
+  public function set_circle(){
+
+    shape_name = 'circle';
+    uv.x = 8;
+
   }
 
   function player_collisions(cb:PreCallback):PreFlag {
@@ -140,10 +159,20 @@ class Player extends Sprite {
 
     }
 
-    if(Luxe.input.inputdown('up') && onGround) {
+    if(Luxe.input.inputpressed('up') && onGround) {
 
       body.velocity.y = -(walkForce + 50);
       moving = true;
+
+    }
+
+    if( Luxe.input.inputpressed('shift') ){
+
+      if(shape_name == 'rectangle'){
+        set_circle();
+      } else if(shape_name == 'circle'){
+        set_rectangle();
+      }
 
     }
 

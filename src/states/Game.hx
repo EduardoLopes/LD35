@@ -150,8 +150,10 @@ class Game extends State {
     Luxe.input.bind_key('down', Key.key_s);
     Luxe.input.bind_key('down', Key.down);
 
-    Luxe.input.bind_gamepad('turn_left', 4);
-    Luxe.input.bind_gamepad('turn_right', 5);
+    Luxe.input.bind_key('shift', Key.space);
+
+    Luxe.input.bind_gamepad('shift', 4);
+    Luxe.input.bind_gamepad('shift', 5);
 
   }
 

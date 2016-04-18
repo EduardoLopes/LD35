@@ -1,0 +1,38 @@
+{
+    "rectangle_animation" : {
+        "frame_size":{ "x":"8", "y":"8" },
+        "frameset": ["1-4"],
+        "loop": "true",
+        "speed": "16"
+    },
+    "circle_animation" : {
+        "frame_size":{ "x":"8", "y":"8" },
+        "frameset": ["1-4"],
+        "loop": "true",
+        "speed": "16"
+    },
+    "rectangle_change" : {
+        "frame_size":{ "x":"26", "y":"26" },
+        "frameset": ["1-10"],
+        "loop": "false",
+        "speed": "64"
+    },
+    "circle_change" : {
+        "frame_size":{ "x":"24", "y":"24" },
+        "frameset": ["1-10"],
+        "loop": "false",
+        "speed": "64"
+    },
+    "rectangle_explosion" : {
+        "frame_size":{ "x":"32", "y":"32" },
+        "frameset": ["1-6"],
+        "loop": "false",
+        "speed": "16"
+    },
+    "circle_explosion" : {
+        "frame_size":{ "x":"32", "y":"32" },
+        "frameset": ["1-6"],
+        "loop": "false",
+        "speed": "16"
+    }
+}

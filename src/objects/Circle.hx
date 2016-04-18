@@ -11,6 +11,8 @@ import nape.shape.Shape;
 import nape.phys.BodyType;
 import nape.phys.Material;
 
+import nape.callbacks.CbType;
+
 import nape.callbacks.PreCallback;
 import nape.callbacks.PreFlag;
 import nape.callbacks.PreListener;
@@ -25,6 +27,7 @@ import objects.states.StateMachine;
 
 import components.BodySetup;
 import components.TouchingChecker;
+import nape.callbacks.CbType;
 
 import components.Blinker;
 
@@ -45,6 +48,10 @@ class Circle extends Sprite {
 
   var blinker : Blinker;
 
+  var type : CbType;
+
+  var collected : Bool = false;
+
   public function new (){
 
     super({
@@ -58,9 +65,11 @@ class Circle extends Sprite {
 
     canMove = true;
 
+    type = new CbType();
+
     physics = add(new BodySetup({
       bodyType: BodyType.KINEMATIC,
-      types: [Main.types.Circle],
+      types: [Main.types.Circle, type],
       shapeType: BodyShape.Circle,
       radius: 4,
       isBullet: false,
@@ -69,12 +78,20 @@ class Circle extends Sprite {
     body = physics.body;
     core = physics.core;
 
-    core.sensorEnabled = true;
-
     blinker = add( new Blinker({name: 'blinker'}) );
 
     body.userData.name = 'circle';
     core.userData.name = 'circle';
+
+    add( new TouchingChecker('player-circle', Main.types.Player, type, core.id ) );
+
+    events.listen('player-circle_colliding', function(_){
+
+      kill();
+
+      collected = true;
+
+    });
 
     /*var anim_object = Luxe.resources.json('assets/jsons/player_animation.json');
 
@@ -82,6 +99,23 @@ class Circle extends Sprite {
     anim.add_from_json_object( anim_object.asset.json );*/
 
     //Game.drawer.add(body);
+
+  }
+
+  public function kill(){
+
+    get('blinker').cancel();
+
+    collected = false;
+    visible = false;
+    active = false;
+
+    /*Game.drawer.remove(body);*/
+
+    body.space = null;
+
+    Game.circle_emitter.busy.remove(this);
+    Game.circle_emitter.free.add(this);
 
   }
 

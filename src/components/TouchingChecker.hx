@@ -51,7 +51,9 @@ class TouchingChecker extends Component {
 
   var shape_id : Int;
 
-  public function new(componentName:String, ObjectType1 : CbType, ObjectType2 : CbType, shapeID : Int){
+  var interaction_type : InteractionType;
+
+  public function new(componentName:String, ObjectType1 : CbType, ObjectType2 : CbType, shapeID : Int, interactionType : InteractionType = null){
 
     super({name: componentName});
 
@@ -60,6 +62,12 @@ class TouchingChecker extends Component {
 
     shape_id = shapeID;
 
+    if(interactionType == null){
+      interactionType = InteractionType.COLLISION;
+    }
+
+    interaction_type = interactionType;
+
   }
 
   override function init() {
@@ -67,14 +75,14 @@ class TouchingChecker extends Component {
     object = cast entity;
 
     interactionListener_ongoing = new InteractionListener(
-      CbEvent.ONGOING, InteractionType.COLLISION,
+      CbEvent.ONGOING, interaction_type,
       objectType1,
       objectType2,
       onGoing
     );
 
     interactionListener_end = new InteractionListener(
-      CbEvent.END, InteractionType.COLLISION,
+      CbEvent.END, interaction_type,
       objectType1,
       objectType2,
       end
@@ -185,9 +193,9 @@ class TouchingChecker extends Component {
     }
 
     if( isTouching(Touching.ANY)  ){
-      colladingEvent = name+'_collading';
+      colladingEvent = name+'_colliding';
     } else {
-      colladingEvent = name+'_wasCollading';
+      colladingEvent = name+'_wasColliding';
     }
 
     if( rightWallEvent != lastRightWallEvent ){

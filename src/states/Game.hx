@@ -39,8 +39,8 @@ class Game extends State {
   public static var drawer : DebugDraw;
   public static var player : Player;
   public var level : Level;
-  public var rectangle_emitter : ObjectPool<Rectangle>;
-  public var circle_emitter : ObjectPool<Circle>;
+  public static var rectangle_emitter : ObjectPool<Rectangle>;
+  public static var circle_emitter : ObjectPool<Circle>;
 
   var time_to_spawn : Float = 5;
   var timer_to_spawn : Float = 5;

@@ -11,6 +11,8 @@ import nape.shape.Shape;
 import nape.phys.BodyType;
 import nape.phys.Material;
 
+import nape.callbacks.CbType;
+
 import nape.callbacks.PreCallback;
 import nape.callbacks.PreFlag;
 import nape.callbacks.PreListener;
@@ -44,6 +46,10 @@ class Rectangle extends Sprite {
 
   var blinker : Blinker;
 
+  var type : CbType;
+
+  var collected : Bool;
+
   public function new (){
 
     super({
@@ -57,9 +63,11 @@ class Rectangle extends Sprite {
 
     canMove = true;
 
+    type = new CbType();
+
     physics = add(new BodySetup({
       bodyType: BodyType.KINEMATIC,
-      types: [Main.types.Rectangle],
+      types: [Main.types.Rectangle, type],
       polygon: Polygon.box(8, 8),
       isBullet: false,
     }));
@@ -67,12 +75,18 @@ class Rectangle extends Sprite {
     body = physics.body;
     core = physics.core;
 
-    core.sensorEnabled = true;
-
     blinker = add( new Blinker({name: 'blinker'}) );
 
     body.userData.name = 'rectangle';
     core.userData.name = 'rectangle';
+
+    add( new TouchingChecker('player-rectangle', Main.types.Player, type, core.id ) );
+
+    events.listen('player-rectangle_colliding', function(_){
+      kill();
+
+      collected = true;
+    });
 
     /*var anim_object = Luxe.resources.json('assets/jsons/player_animation.json');
 
@@ -80,6 +94,23 @@ class Rectangle extends Sprite {
     anim.add_from_json_object( anim_object.asset.json );*/
 
     //Game.drawer.add(body);
+
+  }
+
+  public function kill(){
+
+    get('blinker').cancel();
+
+    collected = false;
+    visible = false;
+    active = false;
+
+    /*Game.drawer.remove(body);*/
+
+    body.space = null;
+
+    Game.rectangle_emitter.busy.remove(this);
+    Game.rectangle_emitter.free.add(this);
 
   }
 

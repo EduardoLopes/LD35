@@ -184,7 +184,7 @@ class Game extends State {
     var x = Luxe.utils.random.int(0, level.width - 1);
     var y = Luxe.utils.random.int(0, level.height - 1);
 
-    var bodies : nape.phys.BodyList = Luxe.physics.nape.space.bodiesUnderPoint(Vec2.weak(x * 8, y * 8));
+    var bodies : nape.phys.BodyList = Luxe.physics.nape.space.bodiesUnderPoint(Vec2.weak((x * 8) + 4, (y * 8) + 4));
 
     if(bodies.empty() == true){
       if(Luxe.utils.random.bool(0.5)){

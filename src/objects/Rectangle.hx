@@ -81,19 +81,10 @@ class Rectangle extends Sprite {
 
   }
 
-  public function spawn(level : Level){
+  public function spawn(x : Int, y : Int){
 
-    var x = Luxe.utils.random.int(0, level.width - 1);
-    var y = Luxe.utils.random.int(0, level.height - 1);
-
-    var tile = level.tiledmap_data.layers[level.collision_layer_id].tiles[y * level.tiledmap_data.width + x];
-
-    if(tile != null){
-      if(tile.id == 0){
-        body.position.x = (x * 8) + 4;
-        body.position.y = (y * 8) + 4;
-      }
-    }
+    body.position.x = x;
+    body.position.y = y;
 
   }
 

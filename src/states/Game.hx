@@ -36,7 +36,7 @@ class Game extends State {
 
   public static var drawer : DebugDraw;
   public static var player : Player;
-  public var current_level : Level;
+  public var level : Level;
   public var rectangle_emitter : ObjectPool<Rectangle>;
 
   var time_to_spawn : Float = 5;
@@ -76,13 +76,13 @@ class Game extends State {
 
     var res = Luxe.resources.text('assets/maps/map-1.tmx');
 
-    current_level = new Level({
+    level = new Level({
       tiled_file_data : res.asset.text,
       pos : new Vector(0, 0) ,
       asset_path : 'assets/images'
     });
 
-    current_level.display({ visible: true, scale:1 });
+    level.display({ visible: true, scale:1 });
 
     player = new Player(240 / 2, 170 / 2);
 
@@ -168,7 +168,16 @@ class Game extends State {
 
   function spawn(){
 
-    rectangle_emitter.get().spawn(current_level);
+    var x = Luxe.utils.random.int(0, level.width - 1);
+    var y = Luxe.utils.random.int(0, level.height - 1);
+
+    var tile = level.tiledmap_data.layers[level.collision_layer_id].tiles[y * level.tiledmap_data.width + x];
+
+    if(tile != null){
+      if(tile.id == 0){
+        rectangle_emitter.get().spawn((x * 8) + 4, (y * 8) + 4);
+      }
+    }
 
   }
 

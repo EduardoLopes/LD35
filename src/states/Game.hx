@@ -93,6 +93,10 @@ class Game extends State {
 
     player = new Player(240 / 2, 170 / 2);
 
+    for(i in 0...20){
+      spawn();
+    }
+
   }
 
 

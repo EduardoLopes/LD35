@@ -95,7 +95,7 @@ class Circle extends Sprite {
       type,
       function (cb:InteractionCallback){
 
-        if(Player.shape_name == 'circle'){
+        if(Player.shape_name == 'circle' && invincible == false){
           kill();
           collected = true;
         }
@@ -134,6 +134,15 @@ class Circle extends Sprite {
   }
 
   public function spawn(x : Int, y : Int){
+
+    invincible = true;
+
+    blinker.blink(2, 0.06, function():Void{
+
+      visible = true;
+      invincible = false;
+
+    });
 
     collected = false;
     visible = true;

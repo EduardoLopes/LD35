@@ -94,7 +94,7 @@ class Rectangle extends Sprite {
       type,
       function (cb:InteractionCallback){
 
-        if(Player.shape_name == 'rectangle'){
+        if(Player.shape_name == 'rectangle' && invincible == false){
           kill();
           collected = true;
         }
@@ -133,6 +133,15 @@ class Rectangle extends Sprite {
   }
 
   public function spawn(x : Int, y : Int){
+
+    invincible = true;
+
+    blinker.blink(2, 0.06, function():Void{
+
+      visible = true;
+      invincible = false;
+
+    });
 
     collected = false;
     visible = true;

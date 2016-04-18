@@ -94,8 +94,10 @@ class Rectangle extends Sprite {
       type,
       function (cb:InteractionCallback){
 
-        kill();
-        collected = true;
+        if(Player.shape_name == 'rectangle'){
+          kill();
+          collected = true;
+        }
 
       }
     );

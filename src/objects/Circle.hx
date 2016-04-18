@@ -95,8 +95,10 @@ class Circle extends Sprite {
       type,
       function (cb:InteractionCallback){
 
-        kill();
-        collected = true;
+        if(Player.shape_name == 'circle'){
+          kill();
+          collected = true;
+        }
 
       }
     );
@@ -116,7 +118,6 @@ class Circle extends Sprite {
 
     get('blinker').cancel();
 
-    collected = false;
     visible = false;
     active = false;
 

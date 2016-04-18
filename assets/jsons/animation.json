@@ -10,5 +10,11 @@
         "frameset": ["1-4"],
         "loop": "true",
         "speed": "16"
+    },
+    "rectangle_change" : {
+        "frame_size":{ "x":"26", "y":"26" },
+        "frameset": ["1-10"],
+        "loop": "false",
+        "speed": "64"
     }
 }

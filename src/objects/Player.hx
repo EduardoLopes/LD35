@@ -46,6 +46,9 @@ class Player extends Sprite {
 
   var jumps : Int = 1;
 
+  var rectangle_change : Sprite;
+  var rectangle_change_anim : SpriteAnimation;
+
   public function new (x : Float, y : Float){
 
     super({
@@ -54,6 +57,14 @@ class Player extends Sprite {
       name: 'player',
       depth: 3.4,
       size: new Vector(8, 8)
+    });
+
+    rectangle_change = new Sprite({
+      pos: new Vector(0, 0),
+      texture: Luxe.resources.texture('assets/images/rectangle_change.png'),
+      name: 'rectangle_change',
+      depth: 3.5,
+      size: new Vector(26, 26)
     });
 
     canMove = true;
@@ -93,6 +104,12 @@ class Player extends Sprite {
     anim = add( new SpriteAnimation({ name:'anim' }) );
     anim.add_from_json_object( anim_object.asset.json );*/
 
+
+    var anim_object = Luxe.resources.json('assets/jsons/animation.json');
+
+    rectangle_change_anim = rectangle_change.add( new SpriteAnimation({ name:'anim' }) );
+    rectangle_change_anim.add_from_json_object( anim_object.asset.json );
+
     //Game.drawer.add(body);
 
     Luxe.physics.nape.space.listeners.add(new PreListener(
@@ -111,8 +128,20 @@ class Player extends Sprite {
 
   public function set_rectangle(){
 
-    shape_name = 'rectangle';
-    uv.x = 0;
+    rectangle_change.pos.x = pos.x;
+    rectangle_change.pos.y = pos.y;
+
+    rectangle_change_anim.animation = 'rectangle_change';
+    rectangle_change_anim.play();
+
+    Luxe.timescale = 0.000001;
+    Luxe.timer.schedule(0.1, function(){
+
+      Luxe.timescale = 1;
+      shape_name = 'rectangle';
+      uv.x = 0;
+
+    });
 
   }
 

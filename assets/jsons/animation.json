@@ -4,5 +4,11 @@
         "frameset": ["1-4"],
         "loop": "true",
         "speed": "16"
+    },
+    "circle_animation" : {
+        "frame_size":{ "x":"8", "y":"8" },
+        "frameset": ["1-4"],
+        "loop": "true",
+        "speed": "16"
     }
 }

@@ -40,7 +40,7 @@ class Circle extends Sprite {
 
   public var body : Body;
   public var physics : BodySetup;
-  /*public var anim : SpriteAnimation;*/
+  public var anim : SpriteAnimation;
   public var moving : Bool;
   public var canMove: Bool;
   public var core : Shape;
@@ -105,10 +105,13 @@ class Circle extends Sprite {
 
     Luxe.physics.nape.space.listeners.add(interactionListener_ongoing);
 
-    /*var anim_object = Luxe.resources.json('assets/jsons/player_animation.json');
+    var anim_object = Luxe.resources.json('assets/jsons/animation.json');
 
     anim = add( new SpriteAnimation({ name:'anim' }) );
-    anim.add_from_json_object( anim_object.asset.json );*/
+    anim.add_from_json_object( anim_object.asset.json );
+
+    anim.animation = 'circle_animation';
+    anim.play();
 
     //Game.drawer.add(body);
 

@@ -204,7 +204,9 @@ class Game extends State {
 
       timer_to_spawn = time_to_spawn;
 
-      spawn();
+      for(i in 0...Luxe.utils.random.int(1, 5)){
+        spawn();
+      }
 
     }
 

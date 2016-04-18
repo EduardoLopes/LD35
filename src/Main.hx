@@ -50,7 +50,8 @@ class Main extends luxe.Game {
         {id : 'assets/images/collision-tile.png'},
         {id : 'assets/images/tileset.png'},
         {id : 'assets/images/player.png'},
-        {id : 'assets/images/rectangle.png'}
+        {id : 'assets/images/rectangle.png'},
+        {id : 'assets/images/circle.png'}
       ],
       sounds : []
     });

@@ -15,6 +15,7 @@ import nape.callbacks.PreCallback;
 import nape.callbacks.PreFlag;
 import nape.callbacks.PreListener;
 import nape.callbacks.InteractionType;
+import nape.shape.Shape;
 
 import states.Game;
 
@@ -28,7 +29,7 @@ import components.TouchingChecker;
 import components.Blinker;
 
 
-class Rectangle extends Sprite {
+class Circle extends Sprite {
 
   public var body : Body;
   public var physics : BodySetup;
@@ -40,7 +41,7 @@ class Rectangle extends Sprite {
   public var invincible : Bool = false;
   public var onGround : Bool = false;
 
-  public var shape_name : String = 'rectangle';
+  public var shape_name : String = 'circle';
 
   var blinker : Blinker;
 
@@ -48,8 +49,8 @@ class Rectangle extends Sprite {
 
     super({
       pos: new Vector(0, 0),
-      texture: Luxe.resources.texture('assets/images/rectangle.png'),
-      name: 'rectangle',
+      texture: Luxe.resources.texture('assets/images/circle.png'),
+      name: 'circle',
       name_unique: true,
       depth: 3.4,
       size: new Vector(8, 8)
@@ -59,8 +60,9 @@ class Rectangle extends Sprite {
 
     physics = add(new BodySetup({
       bodyType: BodyType.KINEMATIC,
-      types: [Main.types.Rectangle],
-      polygon: Polygon.box(8, 8),
+      types: [Main.types.Circle],
+      shapeType: BodyShape.Circle,
+      radius: 4,
       isBullet: false,
     }));
 
@@ -71,8 +73,8 @@ class Rectangle extends Sprite {
 
     blinker = add( new Blinker({name: 'blinker'}) );
 
-    body.userData.name = 'rectangle';
-    core.userData.name = 'rectangle';
+    body.userData.name = 'circle';
+    core.userData.name = 'circle';
 
     /*var anim_object = Luxe.resources.json('assets/jsons/player_animation.json');
 

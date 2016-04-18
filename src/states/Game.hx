@@ -13,6 +13,7 @@ import nape.callbacks.PreListener;
 
 import luxe.physics.nape.DebugDraw;
 /*import components.CameraFollower;*/
+import nape.geom.Vec2;
 
 import nape.shape.Shape;
 
@@ -39,8 +40,8 @@ class Game extends State {
   public var level : Level;
   public var rectangle_emitter : ObjectPool<Rectangle>;
 
-  var time_to_spawn : Float = 5;
-  var timer_to_spawn : Float = 5;
+  var time_to_spawn : Float = 0.2;
+  var timer_to_spawn : Float = 0.2;
 
   public function new() {
 
@@ -171,12 +172,10 @@ class Game extends State {
     var x = Luxe.utils.random.int(0, level.width - 1);
     var y = Luxe.utils.random.int(0, level.height - 1);
 
-    var tile = level.tiledmap_data.layers[level.collision_layer_id].tiles[y * level.tiledmap_data.width + x];
+    var bodies : nape.phys.BodyList = Luxe.physics.nape.space.bodiesUnderPoint(Vec2.weak(x * 8, y * 8));
 
-    if(tile != null){
-      if(tile.id == 0){
-        rectangle_emitter.get().spawn((x * 8) + 4, (y * 8) + 4);
-      }
+    if(bodies.empty() == true){
+      rectangle_emitter.get().spawn((x * 8) + 4, (y * 8) + 4);
     }
 
   }

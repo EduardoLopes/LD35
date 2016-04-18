@@ -94,13 +94,15 @@ class Rectangle extends Sprite {
       type,
       function (cb:InteractionCallback){
 
-        if(Player.shape_name == 'rectangle' && invincible == false){
+        if(Player.shape_name == 'rectangle' && invincible == false && collected == false){
           Luxe.timescale = 0.000001;
           Luxe.timer.schedule(0.1, function(){
             Luxe.timescale = 1;
             kill();
-            collected = true;
+
           });
+
+          collected = true;
         }
 
       }

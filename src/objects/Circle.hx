@@ -11,6 +11,10 @@ import nape.shape.Shape;
 import nape.phys.BodyType;
 import nape.phys.Material;
 
+import nape.callbacks.CbEvent;
+import nape.callbacks.InteractionCallback;
+import nape.callbacks.InteractionListener;
+
 import nape.callbacks.CbType;
 
 import nape.callbacks.PreCallback;
@@ -78,20 +82,26 @@ class Circle extends Sprite {
     body = physics.body;
     core = physics.core;
 
+    core.sensorEnabled = true;
+
     blinker = add( new Blinker({name: 'blinker'}) );
 
     body.userData.name = 'circle';
     core.userData.name = 'circle';
 
-    add( new TouchingChecker('player-circle', Main.types.Player, type, core.id ) );
+    var interactionListener_ongoing = new InteractionListener(
+      CbEvent.ONGOING, InteractionType.SENSOR,
+      Main.types.Player,
+      type,
+      function (cb:InteractionCallback){
 
-    events.listen('player-circle_colliding', function(_){
+        kill();
+        collected = true;
 
-      kill();
+      }
+    );
 
-      collected = true;
-
-    });
+    Luxe.physics.nape.space.listeners.add(interactionListener_ongoing);
 
     /*var anim_object = Luxe.resources.json('assets/jsons/player_animation.json');
 
@@ -120,6 +130,12 @@ class Circle extends Sprite {
   }
 
   public function spawn(x : Int, y : Int){
+
+    collected = false;
+    visible = true;
+    active = true;
+
+    body.space = Luxe.physics.nape.space;
 
     body.position.x = x;
     body.position.y = y;

@@ -53,7 +53,7 @@ class TouchingChecker extends Component {
 
   var interaction_type : InteractionType;
 
-  public function new(componentName:String, ObjectType1 : CbType, ObjectType2 : CbType, shapeID : Int, interactionType : InteractionType = null){
+  public function new(componentName:String, ObjectType1 : CbType, ObjectType2 : CbType, shapeID : Int, interactionType : InteractionType){
 
     super({name: componentName});
 
@@ -61,10 +61,6 @@ class TouchingChecker extends Component {
     objectType2 = ObjectType2;
 
     shape_id = shapeID;
-
-    if(interactionType == null){
-      interactionType = InteractionType.COLLISION;
-    }
 
     interaction_type = interactionType;
 

@@ -11,6 +11,10 @@ import nape.shape.Shape;
 import nape.phys.BodyType;
 import nape.phys.Material;
 
+import nape.callbacks.CbEvent;
+import nape.callbacks.InteractionCallback;
+import nape.callbacks.InteractionListener;
+
 import nape.callbacks.CbType;
 
 import nape.callbacks.PreCallback;
@@ -75,18 +79,26 @@ class Rectangle extends Sprite {
     body = physics.body;
     core = physics.core;
 
+    core.sensorEnabled = true;
+
     blinker = add( new Blinker({name: 'blinker'}) );
 
     body.userData.name = 'rectangle';
     core.userData.name = 'rectangle';
 
-    add( new TouchingChecker('player-rectangle', Main.types.Player, type, core.id ) );
+    var interactionListener_ongoing = new InteractionListener(
+      CbEvent.ONGOING, InteractionType.SENSOR,
+      Main.types.Player,
+      type,
+      function (cb:InteractionCallback){
 
-    events.listen('player-rectangle_colliding', function(_){
-      kill();
+        kill();
+        collected = true;
 
-      collected = true;
-    });
+      }
+    );
+
+    Luxe.physics.nape.space.listeners.add(interactionListener_ongoing);
 
     /*var anim_object = Luxe.resources.json('assets/jsons/player_animation.json');
 
@@ -101,7 +113,6 @@ class Rectangle extends Sprite {
 
     get('blinker').cancel();
 
-    collected = false;
     visible = false;
     active = false;
 
@@ -115,6 +126,12 @@ class Rectangle extends Sprite {
   }
 
   public function spawn(x : Int, y : Int){
+
+    collected = false;
+    visible = true;
+    active = true;
+
+    body.space = Luxe.physics.nape.space;
 
     body.position.x = x;
     body.position.y = y;

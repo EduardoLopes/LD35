@@ -73,7 +73,7 @@ class Player extends Sprite {
     body.userData.name = 'player';
     core.userData.name = 'player';
 
-    add( new TouchingChecker('player-floor', Main.types.Player, Main.types.Floor, core.id) );
+    add( new TouchingChecker('player-floor', Main.types.Player, Main.types.Floor, core.id, InteractionType.COLLISION) );
 
     events.listen('player-floor_onBottom', function(_){
       onGround = true;

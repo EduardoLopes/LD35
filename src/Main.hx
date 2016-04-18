@@ -17,7 +17,7 @@ import states.Game;
 
 class Main extends luxe.Game {
 
-  public static var zoom : Int = 1;
+  public static var zoom : Int = 2;
   public static var pressingGamepadLeft : Bool;
   public static var pressingGamepadRight : Bool;
   public static var pressingGamepadUp : Bool;
@@ -35,6 +35,9 @@ class Main extends luxe.Game {
   override function config(config:luxe.AppConfig) {
 
     gameResolution = new Vector(config.window.width, config.window.height);
+
+    config.window.width = config.window.width * zoom;
+    config.window.height = config.window.height * zoom;
 
     return config;
 
@@ -110,6 +113,8 @@ class Main extends luxe.Game {
 
     state.set('game');
 
+    update_camera_scale();
+
   }
 
   override function ongamepadaxis( event:GamepadEvent ) {
@@ -152,11 +157,9 @@ class Main extends luxe.Game {
 
     }
 
-
-
   }
 
-  override function onwindowsized( e:WindowEvent ):Void {
+  function update_camera_scale(){
 
     zoomRatio.x = Math.floor(Luxe.screen.w / gameResolution.x);
     zoomRatio.y = Math.floor(Luxe.screen.h / gameResolution.y);
@@ -168,9 +171,29 @@ class Main extends luxe.Game {
     var x = (Luxe.screen.w / 2) - (width / 2);
     var y = (Luxe.screen.h / 2) - (height / 2);
 
+    #if web
+    Luxe.camera.zoom = zoom;
+    backgroundBatcherCamera.zoom = zoom;
+    foregroundBatcherCamera.zoom = zoom;
+    #end
+
     Luxe.camera.viewport.set(x, y, width, height);
     backgroundBatcherCamera.viewport.set(x, y, width, height);
     foregroundBatcherCamera.viewport.set(x, y, width, height);
+
+    var _zoom:Float = Math.max(0, zoom - 1);
+
+/*    cameraOffset.set_xy(Main.gameResolution.x * _zoom, Main.gameResolution.y * _zoom);
+    screenMiddle.set_xy(((Main.gameResolution.x * Main.zoom) / 2), ((Main.gameResolution.y * Main.zoom) / 2));*/
+
+    Luxe.camera.pos.x = -((Main.gameResolution.x * _zoom) / 2);
+    Luxe.camera.pos.y = -((Main.gameResolution.y * _zoom) / 2);
+
+  }
+
+  override function onwindowsized( e:WindowEvent ):Void {
+
+    update_camera_scale();
 
   }
 

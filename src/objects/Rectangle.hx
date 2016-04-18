@@ -46,6 +46,8 @@ class Rectangle extends Sprite {
   public var invincible : Bool = false;
   public var onGround : Bool = false;
 
+  public var jumps : Int = 1;
+
   public var shape_name : String = 'rectangle';
 
   var blinker : Blinker;
@@ -133,8 +135,8 @@ class Rectangle extends Sprite {
 
     body.space = Luxe.physics.nape.space;
 
-    body.position.x = x;
-    body.position.y = y;
+    pos.x = body.position.x = x;
+    pos.y = body.position.y = y;
 
   }
 

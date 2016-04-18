@@ -137,8 +137,8 @@ class Circle extends Sprite {
 
     body.space = Luxe.physics.nape.space;
 
-    body.position.x = x;
-    body.position.y = y;
+    pos.x = body.position.x = x;
+    pos.y = body.position.y = y;
 
   }
 

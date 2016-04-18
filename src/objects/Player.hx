@@ -44,6 +44,8 @@ class Player extends Sprite {
 
   var blinker : Blinker;
 
+  var jumps : Int = 1;
+
   public function new (x : Float, y : Float){
 
     super({
@@ -77,6 +79,7 @@ class Player extends Sprite {
 
     events.listen('player-floor_onBottom', function(_){
       onGround = true;
+      jumps = 1;
       body.setShapeMaterials(Materials.Ground);
     });
 
@@ -164,6 +167,12 @@ class Player extends Sprite {
       body.velocity.y = -(walkForce + 50);
       moving = true;
 
+    }
+
+    if(Luxe.input.inputpressed('up') && jumps == 1 && onGround == false){
+      body.velocity.y = -(walkForce + 50);
+      moving = true;
+      jumps--;
     }
 
     if( Luxe.input.inputpressed('shift') ){

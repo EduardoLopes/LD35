@@ -6,6 +6,8 @@ import luxe.Vector;
 import luxe.Screen;
 import luxe.States;
 
+import phoenix.Texture;
+
 import luxe.Parcel;
 import luxe.ParcelProgress;
 
@@ -41,7 +43,9 @@ class Main extends luxe.Game {
   override function ready() {
 
     var parcel = new Parcel({
-      fonts : [],
+      fonts : [
+        { id:'assets/fonts/font.fnt' },
+      ],
       jsons : [
         {id : 'assets/jsons/animation.json'},
       ],
@@ -55,10 +59,14 @@ class Main extends luxe.Game {
         {id : 'assets/images/rectangle.png'},
         {id : 'assets/images/circle.png'},
         {id : 'assets/images/rectangle_change.png'},
-        {id : 'assets/images/circle_change.png'}
+        {id : 'assets/images/circle_change.png'},
+        {id : 'assets/images/rectangle_explosion.png'},
+        {id : 'assets/images/circle_explosion.png'}
       ],
       sounds : []
     });
+
+    phoenix.Texture.default_filter = FilterType.nearest;
 
     new ParcelProgress({
       parcel      : parcel,

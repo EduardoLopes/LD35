@@ -22,5 +22,17 @@
         "frameset": ["1-10"],
         "loop": "false",
         "speed": "64"
+    },
+    "rectangle_explosion" : {
+        "frame_size":{ "x":"32", "y":"32" },
+        "frameset": ["1-6"],
+        "loop": "false",
+        "speed": "16"
+    },
+    "circle_explosion" : {
+        "frame_size":{ "x":"32", "y":"32" },
+        "frameset": ["1-6"],
+        "loop": "false",
+        "speed": "16"
     }
 }

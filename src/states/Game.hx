@@ -23,6 +23,8 @@ import objects.ObjectPool;
 import objects.Player;
 import objects.Rectangle;
 import objects.Circle;
+import objects.RectangleExplosion;
+import objects.CircleExplosion;
 
 import phoenix.Texture.ClampType;
 
@@ -41,9 +43,14 @@ class Game extends State {
   public var level : Level;
   public static var rectangle_emitter : ObjectPool<Rectangle>;
   public static var circle_emitter : ObjectPool<Circle>;
+  public static var rectangle_explosion_emitter : ObjectPool<RectangleExplosion>;
+  public static var circle_explosion_emitter : ObjectPool<CircleExplosion>;
 
   var time_to_spawn : Float = 5;
   var timer_to_spawn : Float = 5;
+
+  public static var score_text : Text;
+  public static var score : Int = 0;
 
   public function new() {
 
@@ -64,6 +71,25 @@ class Game extends State {
 
     circle_emitter = new ObjectPool<Circle>(function(){
       return new Circle();
+    });
+
+    rectangle_explosion_emitter = new ObjectPool<RectangleExplosion>(function(){
+      return new RectangleExplosion();
+    });
+
+    circle_explosion_emitter = new ObjectPool<CircleExplosion>(function(){
+      return new CircleExplosion();
+    });
+
+    score_text = new Text({
+      text: '0',
+      pos : new Vector(12 * 8, 7 * 8),
+      point_size : 32,
+      color: new luxe.Color().rgb(0x6d1254),
+      font: Luxe.resources.font('assets/fonts/font.fnt'),
+      align: center,
+      bounds : new luxe.Rectangle(0, 0, 6*8, 6*8),
+      depth: 1
     });
 
 /*    Main.backgroundBatcherCamera.pos.x = -(CameraFollower.screenMiddle.x);

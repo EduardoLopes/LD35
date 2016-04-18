@@ -99,9 +99,10 @@ class Rectangle extends Sprite {
           Luxe.timer.schedule(0.1, function(){
             Luxe.timescale = 1;
             kill();
-
+            Game.rectangle_explosion_emitter.get().set_alive(pos.x, pos.y);
           });
-
+          Game.score += 1;
+          Game.score_text.text = Std.string(Game.score);
           collected = true;
         }
 

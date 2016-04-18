@@ -96,8 +96,12 @@ class Circle extends Sprite {
       function (cb:InteractionCallback){
 
         if(Player.shape_name == 'circle' && invincible == false){
-          kill();
-          collected = true;
+          Luxe.timescale = 0.000001;
+          Luxe.timer.schedule(0.1, function(){
+            Luxe.timescale = 1;
+            kill();
+            collected = true;
+          });
         }
 
       }

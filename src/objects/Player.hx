@@ -78,6 +78,9 @@ class Player extends Sprite {
       size: new Vector(24, 24)
     });
 
+    rectangle_change.uv.x = rectangle_change.size.x * 10;
+    circle_change.uv.x = circle_change.size.x * 10;
+
     canMove = true;
 
     physics = add(new BodySetup({

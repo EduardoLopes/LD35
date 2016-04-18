@@ -106,6 +106,18 @@ class Rectangle extends Sprite {
           collected = true;
         }
 
+        if(Player.shape_name == 'circle' && Player.dead == false){
+
+          Player.dead = true;
+
+          Luxe.timescale = 0.000001;
+          Luxe.timer.schedule(0.1, function(){
+            Luxe.timescale = 1;
+            Main.state.set('game');
+          });
+
+        }
+
       }
     );
 

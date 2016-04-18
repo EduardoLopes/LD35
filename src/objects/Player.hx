@@ -40,6 +40,7 @@ class Player extends Sprite {
   public var invincible : Bool = false;
   public var onGround : Bool = false;
 
+  public static var dead : Bool = false;
   public static var shape_name : String = 'rectangle';
 
   var blinker : Blinker;

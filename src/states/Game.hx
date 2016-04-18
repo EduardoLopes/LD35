@@ -60,6 +60,8 @@ class Game extends State {
       depth: 100
     });
 
+    Luxe.timescale = 1;
+
     Luxe.physics.nape.debugdraw = drawer;
     Luxe.physics.nape.draw = true;
 
@@ -97,16 +99,6 @@ class Game extends State {
     Main.foregroundBatcherCamera.pos.x = -(CameraFollower.screenMiddle.x);
     Main.foregroundBatcherCamera.pos.y = -(CameraFollower.screenMiddle.y);*/
 
-  }
-
-  override function onenter<T>(_:T) {
-
-    //Main.sounds.reset_all_volumes();
-
-    enable();
-
-    //Luxe.camera.get('follower').resetCamera();
-
     var res = Luxe.resources.text('assets/maps/map-1.tmx');
 
     level = new Level({
@@ -118,6 +110,25 @@ class Game extends State {
     level.display({ visible: true, scale:1 });
 
     player = new Player(240 / 2, 170 / 2);
+
+  }
+
+  override function onenter<T>(_:T) {
+
+    //Main.sounds.reset_all_volumes();
+
+    Game.score = 0;
+    Game.score_text.text = Std.string(Game.score);
+
+    enable();
+
+    timer_to_spawn = time_to_spawn;
+
+    //Luxe.camera.get('follower').resetCamera();
+
+    player.body.position.x = 270 / 2;
+    player.body.position.y = 170 / 2;
+    Player.dead = false;
 
     for(i in 0...20){
       spawn();
@@ -242,6 +253,24 @@ class Game extends State {
 
 /*    player.destroy();
     player = null;*/
+
+    disable();
+
+    for(rect in rectangle_emitter.busy){
+      rect.kill();
+    }
+
+    for(circle in circle_emitter.busy){
+      circle.kill();
+    }
+
+    for(rect_explosion in rectangle_explosion_emitter.busy){
+      rect_explosion.free();
+    }
+
+    for(circle_explosion in circle_explosion_emitter.busy){
+      circle_explosion.free();
+    }
 
   }
 

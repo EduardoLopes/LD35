@@ -54,7 +54,8 @@ class Main extends luxe.Game {
         {id : 'assets/images/player.png'},
         {id : 'assets/images/rectangle.png'},
         {id : 'assets/images/circle.png'},
-        {id : 'assets/images/rectangle_change.png'}
+        {id : 'assets/images/rectangle_change.png'},
+        {id : 'assets/images/circle_change.png'}
       ],
       sounds : []
     });

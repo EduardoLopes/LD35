@@ -49,6 +49,9 @@ class Player extends Sprite {
   var rectangle_change : Sprite;
   var rectangle_change_anim : SpriteAnimation;
 
+  var circle_change : Sprite;
+  var circle_change_anim : SpriteAnimation;
+
   public function new (x : Float, y : Float){
 
     super({
@@ -65,6 +68,14 @@ class Player extends Sprite {
       name: 'rectangle_change',
       depth: 3.5,
       size: new Vector(26, 26)
+    });
+
+    circle_change = new Sprite({
+      pos: new Vector(0, 0),
+      texture: Luxe.resources.texture('assets/images/circle_change.png'),
+      name: 'circle_change',
+      depth: 3.5,
+      size: new Vector(24, 24)
     });
 
     canMove = true;
@@ -110,6 +121,9 @@ class Player extends Sprite {
     rectangle_change_anim = rectangle_change.add( new SpriteAnimation({ name:'anim' }) );
     rectangle_change_anim.add_from_json_object( anim_object.asset.json );
 
+    circle_change_anim = circle_change.add( new SpriteAnimation({ name:'anim' }) );
+    circle_change_anim.add_from_json_object( anim_object.asset.json );
+
     //Game.drawer.add(body);
 
     Luxe.physics.nape.space.listeners.add(new PreListener(
@@ -128,9 +142,6 @@ class Player extends Sprite {
 
   public function set_rectangle(){
 
-    rectangle_change.pos.x = pos.x;
-    rectangle_change.pos.y = pos.y;
-
     rectangle_change_anim.animation = 'rectangle_change';
     rectangle_change_anim.play();
 
@@ -147,8 +158,17 @@ class Player extends Sprite {
 
   public function set_circle(){
 
-    shape_name = 'circle';
-    uv.x = 8;
+    circle_change_anim.animation = 'circle_change';
+    circle_change_anim.play();
+
+    Luxe.timescale = 0.000001;
+    Luxe.timer.schedule(0.1, function(){
+
+      Luxe.timescale = 1;
+      shape_name = 'circle';
+      uv.x = 8;
+
+    });
 
   }
 
@@ -218,6 +238,11 @@ class Player extends Sprite {
     pos.y = body.position.y;
 
     pos = pos.int();
+
+    circle_change.pos.x = pos.x;
+    circle_change.pos.y = pos.y;
+    rectangle_change.pos.x = pos.x;
+    rectangle_change.pos.y = pos.y;
 
     Main.pressingGamepadLeft = false;
     Main.pressingGamepadRight = false;

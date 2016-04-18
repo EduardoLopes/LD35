@@ -16,5 +16,11 @@
         "frameset": ["1-10"],
         "loop": "false",
         "speed": "64"
+    },
+    "circle_change" : {
+        "frame_size":{ "x":"24", "y":"24" },
+        "frameset": ["1-10"],
+        "loop": "false",
+        "speed": "64"
     }
 }

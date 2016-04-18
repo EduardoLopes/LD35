@@ -10,6 +10,8 @@ class Types{
   public var Laser : CbType;
   public var Block : CbType;
   public var Enemy : CbType;
+  public var Rectangle : CbType;
+  public var Circle : CbType;
 
   public function new(){
 
@@ -21,6 +23,8 @@ class Types{
     Laser = new CbType();
     Block = new CbType();
     Enemy = new CbType();
+    Rectangle = new CbType();
+    Circle = new CbType();
 
   }
 

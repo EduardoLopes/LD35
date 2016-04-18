@@ -49,7 +49,8 @@ class Main extends luxe.Game {
       textures : [
         {id : 'assets/images/collision-tile.png'},
         {id : 'assets/images/tileset.png'},
-        {id : 'assets/images/player.png'}
+        {id : 'assets/images/player.png'},
+        {id : 'assets/images/rectangle.png'}
       ],
       sounds : []
     });

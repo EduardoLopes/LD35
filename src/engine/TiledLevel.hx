@@ -14,7 +14,7 @@ import phoenix.geometry.QuadPackGeometry;
 
 class TiledLevel extends TiledMap{
 
-  var collision_layer_id : Int;
+  public var collision_layer_id : Int;
   var geom : Map<String, QuadPackGeometry>;
 
   public function new(options:TiledMapOptions){

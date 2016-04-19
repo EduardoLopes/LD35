@@ -1007,6 +1007,7 @@ Main.prototype = $extend(luxe_Game.prototype,{
 		Main.gameResolution = new phoenix_Vector(config.window.width,config.window.height);
 		config.window.width = config.window.width * Main.zoom;
 		config.window.height = config.window.height * Main.zoom;
+		config.runtime.prevent_default_keys.push(32);
 		return config;
 	}
 	,ready: function() {
